@@ -1,1 +1,198 @@
-:root{--ink:#113b65;--navy:#092d52;--coral:#ff765e;--cream:#fff9eb;font-family:'DM Sans',sans-serif;color:var(--ink)}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);overflow-x:hidden}.site-shell{min-height:100vh;background:radial-gradient(circle at 78% 20%,#e9ffef 0 8%,transparent 25%),linear-gradient(135deg,#fffbed 25%,#e0f6ee);padding:28px clamp(24px,6vw,88px) 0}nav{height:48px;display:flex;align-items:center;justify-content:space-between;max-width:1370px;margin:auto}.brand{font-family:Fraunces,serif;font-weight:700;font-size:22px;color:var(--navy);text-decoration:none;letter-spacing:-.8px}.brand i{font-family:serif;font-style:normal;color:var(--coral);font-size:20px}.nav-link,.text-link{color:var(--ink);text-decoration:none;font-size:14px;font-weight:700}.nav-link span,.text-link span{margin-left:7px}.hero{max-width:1370px;margin:35px auto 100px;min-height:570px;display:grid;grid-template-columns:1fr .94fr;gap:55px;align-items:center}.eyebrow{font-size:11px;letter-spacing:1.7px;text-transform:uppercase;font-weight:700;margin:0 0 17px;color:#4c6f7a;display:flex;align-items:center;gap:9px}.eyebrow span{width:18px;height:1px;background:var(--coral);display:inline-block}h1,h2,h3,p{margin-top:0}h1{font:700 clamp(48px,5.4vw,82px)/.99 Fraunces,serif;letter-spacing:-3.6px;color:var(--navy);margin-bottom:24px}h1 em{color:var(--coral);font-style:italic}.lede{max-width:510px;font-size:17px;line-height:1.65;color:#49697b;margin-bottom:31px}.actions{display:flex;gap:26px;align-items:center}.primary{cursor:pointer;border:0;background:var(--coral);color:white;padding:16px 21px;border-radius:99px;font:700 14px 'DM Sans';box-shadow:0 12px 20px #ff765e45;transition:.25s}.primary:hover{transform:translateY(-3px)}.primary b{font-size:19px;margin-left:12px}.tiny-proof{display:flex;align-items:center;gap:10px;margin-top:40px;color:#567384;font-size:12px}.avatars{letter-spacing:-7px;font-size:17px;width:51px;color:var(--coral)}.preview-card{height:545px;min-width:0;border-radius:28px;overflow:hidden;position:relative;background:#9bdbdf;box-shadow:0 28px 60px #24476730;transform:rotate(2deg);transition:.4s}.preview-card:hover{transform:rotate(0)}.preview-label{position:absolute;z-index:9;top:23px;left:24px;color:white;font-size:10px;font-weight:700;letter-spacing:1.4px}.pulse{display:inline-block;width:7px;height:7px;border-radius:50%;background:#ffef99;margin-right:6px;box-shadow:0 0 0 5px #ffef9940}.preview-caption{position:absolute;z-index:9;bottom:22px;left:24px;right:24px;color:white;display:flex;justify-content:space-between;font-size:10px;letter-spacing:1.4px;font-weight:bold}.preview-caption b{font-weight:500;letter-spacing:0;text-transform:none}
+:root {
+  --ink: #113b65;
+  --navy: #092d52;
+  --coral: #ff765e;
+  --cream: #fff9eb;
+  font-family: "DM Sans", sans-serif;
+  color: var(--ink);
+}
+* {
+  box-sizing: border-box;
+}
+html {
+  scroll-behavior: smooth;
+}
+body {
+  margin: 0;
+  background: var(--cream);
+  overflow-x: hidden;
+}
+.site-shell {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 78% 20%, #e9ffef 0 8%, transparent 25%),
+    linear-gradient(135deg, #fffbed 25%, #e0f6ee);
+  padding: 28px clamp(24px, 6vw, 88px) 0;
+}
+nav {
+  height: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1370px;
+  margin: auto;
+}
+.brand {
+  font-family: Fraunces, serif;
+  font-weight: 700;
+  font-size: 22px;
+  color: var(--navy);
+  text-decoration: none;
+  letter-spacing: -0.8px;
+}
+.brand i {
+  font-family: serif;
+  font-style: normal;
+  color: var(--coral);
+  font-size: 20px;
+}
+.nav-link,
+.text-link {
+  color: var(--ink);
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 700;
+}
+.nav-link span,
+.text-link span {
+  margin-left: 7px;
+}
+.hero {
+  max-width: 1370px;
+  margin: 35px auto 100px;
+  min-height: 570px;
+  display: grid;
+  grid-template-columns: 1fr 0.94fr;
+  gap: 55px;
+  align-items: center;
+}
+.eyebrow {
+  font-size: 11px;
+  letter-spacing: 1.7px;
+  text-transform: uppercase;
+  font-weight: 700;
+  margin: 0 0 17px;
+  color: #4c6f7a;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+.eyebrow span {
+  width: 18px;
+  height: 1px;
+  background: var(--coral);
+  display: inline-block;
+}
+h1,
+h2,
+h3,
+p {
+  margin-top: 0;
+}
+h1 {
+  font:
+    700 clamp(48px, 5.4vw, 82px)/0.99 Fraunces,
+    serif;
+  letter-spacing: -3.6px;
+  color: var(--navy);
+  margin-bottom: 24px;
+}
+h1 em {
+  color: var(--coral);
+  font-style: italic;
+}
+.lede {
+  max-width: 510px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: #49697b;
+  margin-bottom: 31px;
+}
+.actions {
+  display: flex;
+  gap: 26px;
+  align-items: center;
+}
+.primary {
+  cursor: pointer;
+  border: 0;
+  background: var(--coral);
+  color: white;
+  padding: 16px 21px;
+  border-radius: 99px;
+  font: 700 14px "DM Sans";
+  box-shadow: 0 12px 20px #ff765e45;
+  transition: 0.25s;
+}
+.primary:hover {
+  transform: translateY(-3px);
+}
+.primary b {
+  font-size: 19px;
+  margin-left: 12px;
+}
+.tiny-proof {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 40px;
+  color: #567384;
+  font-size: 12px;
+}
+.avatars {
+  letter-spacing: -7px;
+  font-size: 17px;
+  width: 51px;
+  color: var(--coral);
+}
+.preview-card {
+  height: 545px;
+  min-width: 0;
+  border-radius: 28px;
+  overflow: hidden;
+  position: relative;
+  background: #9bdbdf;
+  box-shadow: 0 28px 60px #24476730;
+  transform: rotate(2deg);
+  transition: 0.4s;
+}
+.preview-card:hover {
+  transform: rotate(0);
+}
+.preview-label {
+  position: absolute;
+  z-index: 9;
+  top: 23px;
+  left: 24px;
+  color: white;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1.4px;
+}
+.pulse {
+  display: inline-block;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #ffef99;
+  margin-right: 6px;
+  box-shadow: 0 0 0 5px #ffef9940;
+}
+.preview-caption {
+  position: absolute;
+  z-index: 9;
+  bottom: 22px;
+  left: 24px;
+  right: 24px;
+  color: white;
+  display: flex;
+  justify-content: space-between;
+  font-size: 10px;
+  letter-spacing: 1.4px;
+  font-weight: bold;
+}
+.preview-caption b {
+  font-weight: 500;
+  letter-spacing: 0;
+  text-transform: none;
+}

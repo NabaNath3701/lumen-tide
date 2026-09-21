@@ -17,3 +17,6 @@
 .camera-live .beam{right:12%;bottom:33%;width:210px;opacity:.75}.camera-live .boat{bottom:12%;left:6%;scale:1.08;transform:translate3d(calc(var(--px)*.36),calc(var(--py)*.16),125px) rotateX(-5deg)}
 .camera-live .reflection{bottom:-5%;left:13%;height:145px;opacity:.8}.camera-live .birds{top:18%;left:28%;scale:.72}.camera-live .experience-ui{filter:drop-shadow(0 2px 5px #092b45)}
 @media(max-width:760px){.camera-live .scene-full{box-shadow:inset 0 0 0 8px #e6fbf62b,inset 0 0 35px 10px #0b3c6059}.camera-live .land{right:-34%;width:85%}.camera-live .lighthouse{right:4%;bottom:16%;scale:.72}.camera-live .boat{left:1%;bottom:11%;scale:.83}.camera-live .sun{right:5%;top:10%;scale:.8}.camera-live .beam{right:5%;bottom:29%;scale:.7;transform-origin:right}.camera-live .birds{left:26%;top:22%}}
+
+/* True WebGL AR layer. It only becomes visible after camera permission. */
+#arCanvas{position:absolute;inset:0;z-index:8;width:100%;height:100%;pointer-events:none;display:none}.ar-3d #arCanvas{display:block}.ar-3d .scene-full{display:none}.ar-3d .camera-wash{background:linear-gradient(180deg,#05294533,transparent 35%,#06253d55)}.ar-3d #camera{opacity:1!important}.ar-3d .hint{bottom:max(20px,env(safe-area-inset-bottom));background:#082d4d99;border:1px solid #ffffff44;border-radius:99px;padding:8px 13px}

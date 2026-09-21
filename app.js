@@ -1,7 +1,123 @@
-document.head.insertAdjacentHTML('beforeend',`<style>.scene{position:absolute;inset:0;overflow:hidden;isolation:isolate;--px:0px;--py:0px;background:linear-gradient(#9edee2 0%,#fcd8aa 45%,#e8b688 52%,#2586a5 53%,#075677 100%)}.scene:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 71% 17%,#fff7b1 0 5%,#fff0a488 6%,transparent 13%);z-index:0}.scene:after{content:'';position:absolute;width:140%;height:18%;top:48%;left:-20%;background:repeating-radial-gradient(ellipse at 50% 100%,#2a91ad 0 3px,transparent 4px 16px);opacity:.75;animation:wave 8s linear infinite;z-index:4}.sun{position:absolute;width:110px;height:110px;border-radius:50%;background:#fff6b3;top:11%;right:19%;box-shadow:0 0 70px #fff6b3;z-index:1}.cloud{position:absolute;width:130px;height:33px;border-radius:30px;background:#fff8e8d9;z-index:2;animation:cloud 28s linear infinite}.cloud:before,.cloud:after{content:'';position:absolute;background:inherit;border-radius:50%}.cloud:before{width:60px;height:60px;left:17px;bottom:0}.cloud:after{width:44px;height:44px;right:20px;bottom:0}.c1{top:17%;left:-12%;animation-duration:32s}.c2{top:28%;left:24%;transform:scale(.65);animation-duration:39s}.c3{top:9%;left:64%;transform:scale(.45);animation-duration:23s}.land{position:absolute;z-index:3;bottom:43%;right:-6%;width:52%;height:20%;background:#55816b;border-radius:75% 0 0 0;transform:translateX(calc(var(--px)*-.25))}.land:before{content:'';position:absolute;inset:18% 0 0;background:#345d59;border-radius:75% 0 0 0}.lighthouse{position:absolute;z-index:5;width:66px;height:178px;bottom:43%;right:24%;background:repeating-linear-gradient(to bottom,#fff6df 0 21px,#ec6b59 22px 43px);clip-path:polygon(24% 100%,76% 100%,65% 18%,35% 18%);transform:translate(calc(var(--px)*-.52),calc(var(--py)*-.2))}.lighthouse:before{content:'';position:absolute;width:78px;height:15px;left:-6px;top:10px;background:#143d5c;border-radius:5px}.lighthouse:after{content:'';position:absolute;width:27px;height:35px;left:20px;top:-19px;background:#ffd973;border:5px solid #164260;border-radius:12px 12px 2px 2px;box-shadow:0 0 22px 10px #ffef9d99}.beam{position:absolute;z-index:4;width:270px;height:80px;right:26%;bottom:62%;transform-origin:100% 50%;background:linear-gradient(90deg,transparent,#fff7b966);clip-path:polygon(0 0,100% 45%,100% 55%,0 100%);animation:beam 7s ease-in-out infinite}.boat{position:absolute;z-index:6;bottom:34%;left:20%;width:163px;height:115px;transform:translate(calc(var(--px)*.45),calc(var(--py)*.2));animation:boat 5s ease-in-out infinite}.hull{position:absolute;bottom:0;width:145px;height:38px;background:#e96555;clip-path:polygon(0 5%,100% 5%,82% 100%,19% 100%);border-radius:0 0 20px 20px}.mast{position:absolute;bottom:29px;left:72px;width:7px;height:85px;background:#164663}.sail{position:absolute;bottom:56px;left:77px;width:67px;height:62px;background:#fff5d8;clip-path:polygon(0 0,100% 100%,0 100%)}.window{position:absolute;width:12px;height:12px;border-radius:50%;background:#ffe69a;bottom:13px;left:35px;box-shadow:28px 0 #ffe69a,56px 0 #ffe69a}.reflection{position:absolute;z-index:2;width:130px;height:230px;bottom:0;left:24%;background:linear-gradient(#ffd48960,transparent);clip-path:polygon(43% 0,57% 0,86% 100%,16% 100%)}.birds{position:absolute;z-index:3;top:21%;left:34%;color:#235871;font-size:26px;letter-spacing:6px;animation:birds 13s linear infinite}.birds:before{content:'⌒ ⌒ ⌒'}@keyframes wave{to{transform:translateX(11%)}}@keyframes cloud{to{transform:translateX(130vw)}}@keyframes boat{50%{margin-bottom:12px;rotate:-2deg}}@keyframes beam{50%{rotate:25deg}}@keyframes birds{to{transform:translateX(60vw) translateY(-25px)}}</style>`);
-const scene=e=>e.innerHTML='<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="birds"></div><div class="reflection"></div><div class="land"></div><div class="beam"></div><div class="lighthouse"></div><div class="boat"><div class="mast"></div><div class="sail"></div><div class="hull"></div><div class="window"></div></div>';document.querySelectorAll('[data-scene]').forEach(scene);
-const home=document.querySelector('#home'),exp=document.querySelector('#experience'),modal=document.querySelector('#qrModal'),canvas=document.querySelector('#qrCanvas'),url=new URL(location.href);url.search='experience=ar';url.hash='';
-function qr(){let u=url.href;document.querySelector('#qrUrl').textContent=u;document.querySelector('#openExperience').href=u;let frame=document.querySelector('.qr-frame');frame.querySelectorAll('img').forEach(x=>x.remove());if(window.QRCode){QRCode.toCanvas(canvas,u,{width:372,margin:1,errorCorrectionLevel:'M',color:{dark:'#113b65',light:'#fffdf6'}})}else{canvas.style.display='none';let img=new Image();img.alt='Scannable QR code for Lumen Tide';img.src='https://api.qrserver.com/v1/create-qr-code/?size=372x372&format=png&data='+encodeURIComponent(u);img.style.cssText='width:100%;height:100%;display:block';frame.append(img)}}
-function open(){qr();modal.classList.add('open')}function close(){modal.classList.remove('open')}document.querySelector('#openQR').onclick=open;document.querySelector('.close').onclick=close;document.querySelector('.modal-backdrop').onclick=close;document.querySelector('#downloadQR').onclick=()=>{qr();setTimeout(()=>{let a=document.createElement('a'),img=document.querySelector('.qr-frame img');a.href=img?img.src:canvas.toDataURL('image/png');a.download='lumen-tide-portal.png';a.click()},150)};
-function drift(x,y){document.querySelectorAll('[data-scene]').forEach(s=>{s.style.setProperty('--px',x+'px');s.style.setProperty('--py',y+'px')})}window.addEventListener('pointermove',e=>drift((e.clientX/innerWidth-.5)*20,(e.clientY/innerHeight-.5)*10));function enter(){home.style.display='none';close();exp.hidden=false;setTimeout(()=>document.querySelector('#loading').classList.add('hide'),850);setTimeout(()=>document.querySelector('#cameraPrompt').classList.add('show'),1400)}async function camera(){try{let s=await navigator.mediaDevices.getUserMedia({video:{facingMode:{ideal:'environment'}},audio:false});document.querySelector('#camera').srcObject=s;exp.classList.add('camera-live')}catch(e){}document.querySelector('#cameraPrompt').classList.remove('show');hint()}function hint(){let e=document.querySelector('#hint');e.style.opacity='1';setTimeout(()=>e.style.opacity='0',4200)}document.querySelector('#enableCamera').onclick=camera;document.querySelector('#skipCamera').onclick=()=>{document.querySelector('#cameraPrompt').classList.remove('show');hint()};document.querySelector('#soundToggle').onclick=function(){this.textContent=this.textContent==='♫'?'♬':'♫'};window.addEventListener('deviceorientation',e=>{if(!exp.hidden)drift((e.gamma||0)*1.2,(e.beta||0)*-.35)});if(new URLSearchParams(location.search).get('experience')==='ar')enter();
-(()=>{const t=document.createElement('script');t.src='https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js';t.onload=()=>{const a=document.createElement('script');a.src='ar-diorama.js';document.body.append(a)};document.head.append(t)})();
+document.head.insertAdjacentHTML(
+  "beforeend",
+  `<style>.scene{position:absolute;inset:0;overflow:hidden;isolation:isolate;--px:0px;--py:0px;background:linear-gradient(#9edee2 0%,#fcd8aa 45%,#e8b688 52%,#2586a5 53%,#075677 100%)}.scene:before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 71% 17%,#fff7b1 0 5%,#fff0a488 6%,transparent 13%);z-index:0}.scene:after{content:'';position:absolute;width:140%;height:18%;top:48%;left:-20%;background:repeating-radial-gradient(ellipse at 50% 100%,#2a91ad 0 3px,transparent 4px 16px);opacity:.75;animation:wave 8s linear infinite;z-index:4}.sun{position:absolute;width:110px;height:110px;border-radius:50%;background:#fff6b3;top:11%;right:19%;box-shadow:0 0 70px #fff6b3;z-index:1}.cloud{position:absolute;width:130px;height:33px;border-radius:30px;background:#fff8e8d9;z-index:2;animation:cloud 28s linear infinite}.cloud:before,.cloud:after{content:'';position:absolute;background:inherit;border-radius:50%}.cloud:before{width:60px;height:60px;left:17px;bottom:0}.cloud:after{width:44px;height:44px;right:20px;bottom:0}.c1{top:17%;left:-12%;animation-duration:32s}.c2{top:28%;left:24%;transform:scale(.65);animation-duration:39s}.c3{top:9%;left:64%;transform:scale(.45);animation-duration:23s}.land{position:absolute;z-index:3;bottom:43%;right:-6%;width:52%;height:20%;background:#55816b;border-radius:75% 0 0 0;transform:translateX(calc(var(--px)*-.25))}.land:before{content:'';position:absolute;inset:18% 0 0;background:#345d59;border-radius:75% 0 0 0}.lighthouse{position:absolute;z-index:5;width:66px;height:178px;bottom:43%;right:24%;background:repeating-linear-gradient(to bottom,#fff6df 0 21px,#ec6b59 22px 43px);clip-path:polygon(24% 100%,76% 100%,65% 18%,35% 18%);transform:translate(calc(var(--px)*-.52),calc(var(--py)*-.2))}.lighthouse:before{content:'';position:absolute;width:78px;height:15px;left:-6px;top:10px;background:#143d5c;border-radius:5px}.lighthouse:after{content:'';position:absolute;width:27px;height:35px;left:20px;top:-19px;background:#ffd973;border:5px solid #164260;border-radius:12px 12px 2px 2px;box-shadow:0 0 22px 10px #ffef9d99}.beam{position:absolute;z-index:4;width:270px;height:80px;right:26%;bottom:62%;transform-origin:100% 50%;background:linear-gradient(90deg,transparent,#fff7b966);clip-path:polygon(0 0,100% 45%,100% 55%,0 100%);animation:beam 7s ease-in-out infinite}.boat{position:absolute;z-index:6;bottom:34%;left:20%;width:163px;height:115px;transform:translate(calc(var(--px)*.45),calc(var(--py)*.2));animation:boat 5s ease-in-out infinite}.hull{position:absolute;bottom:0;width:145px;height:38px;background:#e96555;clip-path:polygon(0 5%,100% 5%,82% 100%,19% 100%);border-radius:0 0 20px 20px}.mast{position:absolute;bottom:29px;left:72px;width:7px;height:85px;background:#164663}.sail{position:absolute;bottom:56px;left:77px;width:67px;height:62px;background:#fff5d8;clip-path:polygon(0 0,100% 100%,0 100%)}.window{position:absolute;width:12px;height:12px;border-radius:50%;background:#ffe69a;bottom:13px;left:35px;box-shadow:28px 0 #ffe69a,56px 0 #ffe69a}.reflection{position:absolute;z-index:2;width:130px;height:230px;bottom:0;left:24%;background:linear-gradient(#ffd48960,transparent);clip-path:polygon(43% 0,57% 0,86% 100%,16% 100%)}.birds{position:absolute;z-index:3;top:21%;left:34%;color:#235871;font-size:26px;letter-spacing:6px;animation:birds 13s linear infinite}.birds:before{content:'⌒ ⌒ ⌒'}@keyframes wave{to{transform:translateX(11%)}}@keyframes cloud{to{transform:translateX(130vw)}}@keyframes boat{50%{margin-bottom:12px;rotate:-2deg}}@keyframes beam{50%{rotate:25deg}}@keyframes birds{to{transform:translateX(60vw) translateY(-25px)}}</style>`,
+);
+const scene = (e) =>
+  (e.innerHTML =
+    '<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="birds"></div><div class="reflection"></div><div class="land"></div><div class="beam"></div><div class="lighthouse"></div><div class="boat"><div class="mast"></div><div class="sail"></div><div class="hull"></div><div class="window"></div></div>');
+document.querySelectorAll("[data-scene]").forEach(scene);
+const home = document.querySelector("#home"),
+  exp = document.querySelector("#experience"),
+  modal = document.querySelector("#qrModal"),
+  canvas = document.querySelector("#qrCanvas"),
+  url = new URL(location.href);
+url.search = "experience=ar";
+url.hash = "";
+function qr() {
+  let u = url.href;
+  document.querySelector("#qrUrl").textContent = u;
+  document.querySelector("#openExperience").href = u;
+  let frame = document.querySelector(".qr-frame");
+  frame.querySelectorAll("img").forEach((x) => x.remove());
+  if (window.QRCode) {
+    QRCode.toCanvas(canvas, u, {
+      width: 372,
+      margin: 1,
+      errorCorrectionLevel: "M",
+      color: { dark: "#113b65", light: "#fffdf6" },
+    });
+  } else {
+    canvas.style.display = "none";
+    let img = new Image();
+    img.alt = "Scannable QR code for Lumen Tide";
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=372x372&format=png&data=" +
+      encodeURIComponent(u);
+    img.style.cssText = "width:100%;height:100%;display:block";
+    frame.append(img);
+  }
+}
+function open() {
+  qr();
+  modal.classList.add("open");
+}
+function close() {
+  modal.classList.remove("open");
+}
+document.querySelector("#openQR").onclick = open;
+document.querySelector(".close").onclick = close;
+document.querySelector(".modal-backdrop").onclick = close;
+document.querySelector("#downloadQR").onclick = () => {
+  qr();
+  setTimeout(() => {
+    let a = document.createElement("a"),
+      img = document.querySelector(".qr-frame img");
+    a.href = img ? img.src : canvas.toDataURL("image/png");
+    a.download = "lumen-tide-portal.png";
+    a.click();
+  }, 150);
+};
+function drift(x, y) {
+  document.querySelectorAll("[data-scene]").forEach((s) => {
+    s.style.setProperty("--px", x + "px");
+    s.style.setProperty("--py", y + "px");
+  });
+}
+window.addEventListener("pointermove", (e) =>
+  drift(
+    (e.clientX / innerWidth - 0.5) * 20,
+    (e.clientY / innerHeight - 0.5) * 10,
+  ),
+);
+function enter() {
+  home.style.display = "none";
+  close();
+  exp.hidden = false;
+  setTimeout(
+    () => document.querySelector("#loading").classList.add("hide"),
+    850,
+  );
+  setTimeout(
+    () => document.querySelector("#cameraPrompt").classList.add("show"),
+    1400,
+  );
+}
+async function camera() {
+  try {
+    let s = await navigator.mediaDevices.getUserMedia({
+      video: { facingMode: { ideal: "environment" } },
+      audio: false,
+    });
+    document.querySelector("#camera").srcObject = s;
+    exp.classList.add("camera-live");
+  } catch (e) {}
+  document.querySelector("#cameraPrompt").classList.remove("show");
+  hint();
+}
+function hint() {
+  let e = document.querySelector("#hint");
+  e.style.opacity = "1";
+  setTimeout(() => (e.style.opacity = "0"), 4200);
+}
+document.querySelector("#enableCamera").onclick = camera;
+document.querySelector("#skipCamera").onclick = () => {
+  document.querySelector("#cameraPrompt").classList.remove("show");
+  hint();
+};
+document.querySelector("#soundToggle").onclick = function () {
+  this.textContent = this.textContent === "♫" ? "♬" : "♫";
+};
+window.addEventListener("deviceorientation", (e) => {
+  if (!exp.hidden) drift((e.gamma || 0) * 1.2, (e.beta || 0) * -0.35);
+});
+if (new URLSearchParams(location.search).get("experience") === "ar") enter();
+(() => {
+  const t = document.createElement("script");
+  t.src = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js";
+  t.onload = () => {
+    const a = document.createElement("script");
+    a.src = "ar-diorama.js";
+    document.body.append(a);
+  };
+  document.head.append(t);
+})();

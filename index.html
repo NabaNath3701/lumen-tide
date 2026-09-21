@@ -1,1 +1,99 @@
-<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Lumen Tide</title><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap" rel="stylesheet"><link rel="stylesheet" href="styles.css"><link rel="stylesheet" href="mobile.css"></head><body><main id="home" class="site-shell"><nav><a class="brand">✦ Lumen Tide</a><a class="nav-link" href="#how">How it works ↗</a></nav><section class="hero"><div class="hero-copy"><p class="eyebrow"><span></span>A pocket-sized illustrated world</p><h1>Point your phone<br>toward a <em>little magic.</em></h1><p class="lede">An animated seaside story, tucked behind a QR code. Step into a world where the water shimmers, the lighthouse turns, and every tide carries a new hello.</p><div class="actions"><button class="primary" id="openQR">Create your portal <b>→</b></button><a class="text-link" href="#how">Explore the ritual ↓</a></div><div class="tiny-proof"><div class="avatars">✦ ☀ ☁</div><span>Made for a quiet, wondrous minute.</span></div></div><div class="preview-card"><div class="preview-label"><span class="pulse"></span> LIVE AT SUNSET</div><div class="scene" data-scene></div><div class="preview-caption"><span>THE TINY COAST</span><b>Drag to drift</b></div></div></section><section class="how" id="how"><div><p class="eyebrow"><span></span>Three tiny steps</p><h2>A voyage is waiting<br>on the other side.</h2></div><div class="steps"><article><div class="step-no">01</div><span class="step-icon">⌁</span><h3>Create the portal</h3><p>Make a personal QR code with one small click.</p></article><article><div class="step-no">02</div><span class="step-icon">⌑</span><h3>Scan on your phone</h3><p>Use your camera to cross into the story.</p></article><article><div class="step-no">03</div><span class="step-icon">✦</span><h3>Let the tide in</h3><p>Move your phone and watch the coast awaken.</p></article></div></section><footer><span>© LUMEN TIDE, 2026</span><span>MADE FOR DAYDREAMERS</span></footer></main><section class="qr-modal" id="qrModal"><button class="modal-backdrop"></button><div class="qr-card"><button class="close">×</button><div class="qr-art">✦</div><p class="eyebrow"><span></span>Your portal is ready</p><h2>Meet me<br>by the sea.</h2><p>Scan with your phone to enter the experience.</p><div class="qr-frame"><canvas id="qrCanvas"></canvas></div><div class="qr-url" id="qrUrl"></div><div class="qr-buttons"><a id="openExperience" class="secondary">Open here ↗</a><button id="downloadQR" class="download">Download QR ↓</button></div></div></section><section class="experience" id="experience" hidden><video id="camera" autoplay muted playsinline></video><div class="camera-wash"></div><div class="loading" id="loading"><div class="orbital"><i></i><i></i><i></i></div><p>Gathering sea-light</p></div><div class="scene scene-full" data-scene></div><div class="experience-ui"><a href="./" class="exit">← <span>Leave the coast</span></a><div class="story-title"><p>CHAPTER ONE</p><h2>The Tiny Coast</h2></div><button id="soundToggle" class="round-btn">♬</button></div><div class="camera-prompt" id="cameraPrompt"><div class="camera-icon">◉</div><h2>Let the world<br>meet your world.</h2><p>Use your camera to place this little coast in the moment around you. You can also enjoy it as an illustrated escape.</p><button class="primary" id="enableCamera">Enable camera <b>→</b></button><button class="skip" id="skipCamera">Continue without camera</button></div><div class="hint" id="hint"><span>↔</span>Tilt or drag to look around</div></section><script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script><script src="app.js"></script></body></html>
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+    <title>Lumen Tide</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="mobile.css">
+</head>
+
+<body>
+    <main id="home" class="site-shell">
+        <nav><a class="brand">✦ Lumen Tide</a><a class="nav-link" href="#how">How it works ↗</a></nav>
+        <section class="hero">
+            <div class="hero-copy">
+                <p class="eyebrow"><span></span>A pocket-sized illustrated world</p>
+                <h1>Point your phone<br>toward a <em>little magic.</em></h1>
+                <p class="lede">An animated seaside story, tucked behind a QR code. Step into a world where the water
+                    shimmers, the lighthouse turns, and every tide carries a new hello.</p>
+                <div class="actions"><button class="primary" id="openQR">Create your portal <b>→</b></button><a
+                        class="text-link" href="#how">Explore the ritual ↓</a></div>
+                <div class="tiny-proof">
+                    <div class="avatars">✦ ☀ ☁</div><span>Made for a quiet, wondrous minute.</span>
+                </div>
+            </div>
+            <div class="preview-card">
+                <div class="preview-label"><span class="pulse"></span> LIVE AT SUNSET</div>
+                <div class="scene" data-scene></div>
+                <div class="preview-caption"><span>THE TINY COAST</span><b>Drag to drift</b></div>
+            </div>
+        </section>
+        <section class="how" id="how">
+            <div>
+                <p class="eyebrow"><span></span>Three tiny steps</p>
+                <h2>A voyage is waiting<br>on the other side.</h2>
+            </div>
+            <div class="steps">
+                <article>
+                    <div class="step-no">01</div><span class="step-icon">⌁</span>
+                    <h3>Create the portal</h3>
+                    <p>Make a personal QR code with one small click.</p>
+                </article>
+                <article>
+                    <div class="step-no">02</div><span class="step-icon">⌑</span>
+                    <h3>Scan on your phone</h3>
+                    <p>Use your camera to cross into the story.</p>
+                </article>
+                <article>
+                    <div class="step-no">03</div><span class="step-icon">✦</span>
+                    <h3>Let the tide in</h3>
+                    <p>Move your phone and watch the coast awaken.</p>
+                </article>
+            </div>
+        </section>
+        <footer><span>© LUMEN TIDE, 2026</span><span>MADE FOR DAYDREAMERS</span></footer>
+    </main>
+    <section class="qr-modal" id="qrModal"><button class="modal-backdrop"></button>
+        <div class="qr-card"><button class="close">×</button>
+            <div class="qr-art">✦</div>
+            <p class="eyebrow"><span></span>Your portal is ready</p>
+            <h2>Meet me<br>by the sea.</h2>
+            <p>Scan with your phone to enter the experience.</p>
+            <div class="qr-frame"><canvas id="qrCanvas"></canvas></div>
+            <div class="qr-url" id="qrUrl"></div>
+            <div class="qr-buttons"><a id="openExperience" class="secondary">Open here ↗</a><button id="downloadQR"
+                    class="download">Download QR ↓</button></div>
+        </div>
+    </section>
+    <section class="experience" id="experience" hidden><video id="camera" autoplay muted playsinline></video>
+        <div class="camera-wash"></div>
+        <div class="loading" id="loading">
+            <div class="orbital"><i></i><i></i><i></i></div>
+            <p>Gathering sea-light</p>
+        </div>
+        <div class="scene scene-full" data-scene></div>
+        <div class="experience-ui"><a href="./" class="exit">← <span>Leave the coast</span></a>
+            <div class="story-title">
+                <p>CHAPTER ONE</p>
+                <h2>The Tiny Coast</h2>
+            </div><button id="soundToggle" class="round-btn">♬</button>
+        </div>
+        <div class="camera-prompt" id="cameraPrompt">
+            <div class="camera-icon">◉</div>
+            <h2>Let the world<br>meet your world.</h2>
+            <p>Use your camera to place this little coast in the moment around you. You can also enjoy it as an
+                illustrated escape.</p><button class="primary" id="enableCamera">Enable camera <b>→</b></button><button
+                class="skip" id="skipCamera">Continue without camera</button>
+        </div>
+        <div class="hint" id="hint"><span>↔</span>Tilt or drag to look around</div>
+    </section>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.4/build/qrcode.min.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>

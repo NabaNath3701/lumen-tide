@@ -41,7 +41,7 @@
     const sun=new T.Group();sun.position.set(-2.85,3.05,-1.9);root.add(sun);const sunCore=new T.Mesh(new T.SphereGeometry(.55,16,12),new T.MeshStandardMaterial({color:0xffd35a,emissive:0xff9e24,emissiveIntensity:.65,flatShading:true}));sun.add(sunCore);const sunGlow=new T.PointLight(0xffb34a,2.2,8);sun.add(sunGlow);for(let i=0;i<12;i++){const ray=new T.Mesh(new T.ConeGeometry(.065,.42,4),mat(0xffc84d));ray.position.set(Math.cos(i*Math.PI/6)*.82,Math.sin(i*Math.PI/6)*.82,0);ray.rotation.z=-i*Math.PI/6+Math.PI/2;sun.add(ray)}
     // A tiny keeper gives the island a character and scale.
     const keeper=new T.Group();keeper.position.set(-.85,.04,-.78);island.add(keeper);
-    const body=new T.Mesh(new T.ConeGeometry(.26,.7,7),mat(0x276b94));body.position.y=.38;keeper.add(body);
+    const keeperBody=new T.Mesh(new T.ConeGeometry(.26,.7,7),mat(0x276b94));keeperBody.position.y=.38;keeper.add(keeperBody);
     const head=new T.Mesh(new T.SphereGeometry(.23,10,8),mat(0xf3b377));head.position.y=.89;keeper.add(head);
     const cap=new T.Mesh(new T.CylinderGeometry(.24,.24,.12,10),mat(0xe75e4e));cap.position.y=1.08;keeper.add(cap);
     const brim=new T.Mesh(new T.BoxGeometry(.34,.05,.12),mat(0xe75e4e));brim.position.set(0,1.04,.18);keeper.add(brim);

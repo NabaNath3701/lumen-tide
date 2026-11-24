@@ -6,56 +6,72 @@ const scene = (e) =>
   (e.innerHTML =
     '<div class="sun"></div><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div><div class="birds"></div><div class="reflection"></div><div class="land"></div><div class="beam"></div><div class="lighthouse"></div><div class="boat"><div class="mast"></div><div class="sail"></div><div class="hull"></div><div class="window"></div></div>');
 document.querySelectorAll("[data-scene]").forEach(scene);
-
 const home = document.querySelector("#home"),
   exp = document.querySelector("#experience"),
-  modal = document.querySelector("#portalModal"),
+  modal = document.querySelector("#qrModal"),
+  canvas = document.querySelector("#qrCanvas"),
   url = new URL(location.href);
 url.search = "experience=ar";
 url.hash = "";
-
-function updatePortalInfo() {
-  const scannerUrl = url.href;
-  document.querySelector("#portalUrl").textContent = scannerUrl;
-  document.querySelector("#openExperience").href = scannerUrl;
+function qr() {
+  let u = url.href;
+  document.querySelector("#qrUrl").textContent = u;
+  document.querySelector("#openExperience").href = u;
+  let frame = document.querySelector(".qr-frame");
+  frame.querySelectorAll("img").forEach((x) => x.remove());
+  if (window.QRCode) {
+    QRCode.toCanvas(canvas, u, {
+      width: 372,
+      margin: 1,
+      errorCorrectionLevel: "M",
+      color: { dark: "#113b65", light: "#fffdf6" },
+    });
+  } else {
+    canvas.style.display = "none";
+    let img = new Image();
+    img.alt = "Scannable QR code for Lumen Tide";
+    img.src =
+      "https://api.qrserver.com/v1/create-qr-code/?size=372x372&format=png&data=" +
+      encodeURIComponent(u);
+    img.style.cssText = "width:100%;height:100%;display:block";
+    frame.append(img);
+  }
 }
-
-function openPortal() {
-  updatePortalInfo();
+function open() {
+  qr();
   modal.classList.add("open");
 }
-
-function closePortal() {
+function close() {
   modal.classList.remove("open");
 }
-
-document.querySelector("#openPortal").onclick = openPortal;
-document.querySelector(".close").onclick = closePortal;
-document.querySelector(".modal-backdrop").onclick = closePortal;
-document.querySelector("#downloadPortal").onclick = () => {
-  const a = document.createElement("a");
-  a.href = document.querySelector("#portalImage").src;
-  a.download = "lumen-tide-portal.png";
-  a.click();
+document.querySelector("#openQR").onclick = open;
+document.querySelector(".close").onclick = close;
+document.querySelector(".modal-backdrop").onclick = close;
+document.querySelector("#downloadQR").onclick = () => {
+  qr();
+  setTimeout(() => {
+    let a = document.createElement("a"),
+      img = document.querySelector(".qr-frame img");
+    a.href = img ? img.src : canvas.toDataURL("image/png");
+    a.download = "lumen-tide-portal.png";
+    a.click();
+  }, 150);
 };
-
 function drift(x, y) {
   document.querySelectorAll("[data-scene]").forEach((s) => {
     s.style.setProperty("--px", x + "px");
     s.style.setProperty("--py", y + "px");
   });
 }
-
 window.addEventListener("pointermove", (e) =>
   drift(
     (e.clientX / innerWidth - 0.5) * 20,
     (e.clientY / innerHeight - 0.5) * 10,
   ),
 );
-
 function enter() {
   home.style.display = "none";
-  closePortal();
+  close();
   exp.hidden = false;
   setTimeout(
     () => document.querySelector("#loading").classList.add("hide"),
@@ -66,10 +82,9 @@ function enter() {
     1400,
   );
 }
-
-async function fallbackCamera() {
+async function camera() {
   try {
-    const s = await navigator.mediaDevices.getUserMedia({
+    let s = await navigator.mediaDevices.getUserMedia({
       video: { facingMode: { ideal: "environment" } },
       audio: false,
     });
@@ -79,34 +94,30 @@ async function fallbackCamera() {
   document.querySelector("#cameraPrompt").classList.remove("show");
   hint();
 }
-
 function hint() {
-  const e = document.querySelector("#hint");
+  let e = document.querySelector("#hint");
   e.style.opacity = "1";
   setTimeout(() => (e.style.opacity = "0"), 4200);
 }
-
-window.showArHint = hint;
-
-document.querySelector("#enableCamera").onclick = () => {
-  if (typeof window.startImageAR === "function") {
-    window.startImageAR();
-  } else {
-    fallbackCamera();
-  }
-};
-
+document.querySelector("#enableCamera").onclick = camera;
 document.querySelector("#skipCamera").onclick = () => {
   document.querySelector("#cameraPrompt").classList.remove("show");
   hint();
 };
-
 document.querySelector("#soundToggle").onclick = function () {
   this.textContent = this.textContent === "♫" ? "♬" : "♫";
 };
-
 window.addEventListener("deviceorientation", (e) => {
   if (!exp.hidden) drift((e.gamma || 0) * 1.2, (e.beta || 0) * -0.35);
 });
-
 if (new URLSearchParams(location.search).get("experience") === "ar") enter();
+(() => {
+  const t = document.createElement("script");
+  t.src = "https://cdn.jsdelivr.net/npm/three@0.160.0/build/three.min.js";
+  t.onload = () => {
+    const a = document.createElement("script");
+    a.src = "ar-diorama.js";
+    document.body.append(a);
+  };
+  document.head.append(t);
+})();

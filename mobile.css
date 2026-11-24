@@ -154,7 +154,7 @@
 .scene .birds {
   transform: translateZ(55px);
 }
-.qr-modal {
+.portal-modal {
   position: fixed;
   z-index: 50;
   inset: 0;
@@ -162,7 +162,7 @@
   place-items: center;
   padding: 20px;
 }
-.qr-modal.open {
+.portal-modal.open {
   display: grid;
 }
 .modal-backdrop {
@@ -172,14 +172,16 @@
   background: #082949b8;
   backdrop-filter: blur(9px);
 }
-.qr-card {
+.portal-card {
   z-index: 1;
   position: relative;
-  max-width: 425px;
+  max-width: 440px;
   width: 100%;
+  max-height: 92vh;
+  overflow-y: auto;
   border-radius: 26px;
   background: #fff9ec;
-  padding: 43px;
+  padding: 34px 32px;
   text-align: center;
   box-shadow: 0 25px 70px #00182a88;
 }
@@ -193,48 +195,51 @@
   font-size: 29px;
   cursor: pointer;
 }
-.qr-art {
+.portal-art {
   color: #ff765e;
   font-size: 22px;
 }
-.qr-card .eyebrow {
+.portal-card .eyebrow {
   justify-content: center;
   margin: 9px 0;
 }
-.qr-card h2 {
+.portal-card h2 {
   font:
-    700 45px/0.95 Fraunces,
+    700 42px/0.95 Fraunces,
     serif;
   letter-spacing: -2px;
-  margin: 15px 0;
+  margin: 12px 0;
 }
-.qr-card > p:not(.eyebrow) {
+.portal-card > p:not(.eyebrow) {
   font-size: 14px;
   color: #61777c;
   line-height: 1.5;
 }
-.qr-frame {
-  margin: 23px auto 11px;
-  width: 210px;
-  height: 210px;
+.portal-frame {
+  margin: 18px auto 12px;
+  width: min(220px, 58vw);
+  aspect-ratio: 750 / 1004;
   background: white;
-  padding: 12px;
-  border-radius: 14px;
-  box-shadow: 0 9px 18px #1944651a;
+  padding: 10px;
+  border-radius: 16px;
+  box-shadow: 0 12px 26px #19446522;
 }
-.qr-frame canvas {
+.portal-frame img {
   width: 100%;
   height: 100%;
+  object-fit: cover;
+  border-radius: 10px;
+  display: block;
 }
-.qr-url {
+.portal-url {
   font: 11px monospace;
   color: #6a7d7e;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.qr-buttons {
-  margin-top: 21px;
+.portal-buttons {
+  margin-top: 18px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -657,18 +662,22 @@
   }
 }
 
-/* True WebGL AR layer. It only becomes visible after camera permission. */
-#arCanvas {
+/* True WebGL Image-Tracked AR layer. */
+#arStage {
   position: absolute;
   inset: 0;
   z-index: 8;
-  width: 100%;
-  height: 100%;
-  pointer-events: none;
+  overflow: hidden;
   display: none;
 }
-.ar-3d #arCanvas {
+.ar-3d #arStage {
   display: block;
+}
+#arStage canvas {
+  touch-action: none;
+}
+#arStage > div {
+  pointer-events: none;
 }
 .ar-3d .scene-full {
   display: none;
@@ -677,7 +686,7 @@
   background: linear-gradient(180deg, #05294533, transparent 35%, #06253d55);
 }
 .ar-3d #camera {
-  opacity: 1 !important;
+  display: none;
 }
 .ar-3d .hint {
   bottom: max(20px, env(safe-area-inset-bottom));
@@ -685,4 +694,117 @@
   border: 1px solid #ffffff44;
   border-radius: 99px;
   padding: 8px 13px;
+  opacity: 0;
+  transition: opacity 0.35s;
+}
+.camera-status {
+  color: #ffe58a !important;
+  font-weight: 600;
+  margin-top: 8px;
+}
+.scan-hud {
+  position: absolute;
+  inset: 0;
+  z-index: 12;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  padding: 24px;
+  transition: opacity 0.35s ease;
+}
+.scan-hud[hidden],
+.ar-found .scan-hud {
+  display: none;
+}
+.scan-reticle {
+  position: relative;
+  width: min(250px, 64vw);
+  aspect-ratio: 3 / 4;
+  border-radius: 22px;
+  background: #07274324;
+  box-shadow: 0 0 0 9999px #07274338;
+  overflow: hidden;
+}
+.scan-reticle i {
+  position: absolute;
+  width: 28px;
+  height: 28px;
+  border: 3px solid #ffe58a;
+}
+.scan-reticle i:nth-child(1) {
+  top: 0;
+  left: 0;
+  border-right: 0;
+  border-bottom: 0;
+  border-top-left-radius: 20px;
+}
+.scan-reticle i:nth-child(2) {
+  top: 0;
+  right: 0;
+  border-left: 0;
+  border-bottom: 0;
+  border-top-right-radius: 20px;
+}
+.scan-reticle i:nth-child(3) {
+  bottom: 0;
+  left: 0;
+  border-right: 0;
+  border-top: 0;
+  border-bottom-left-radius: 20px;
+}
+.scan-reticle i:nth-child(4) {
+  bottom: 0;
+  right: 0;
+  border-left: 0;
+  border-top: 0;
+  border-bottom-right-radius: 20px;
+}
+.scan-line {
+  position: absolute;
+  left: 10%;
+  right: 10%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #ffe58a, #ff765e, transparent);
+  box-shadow: 0 0 12px #ffe58a;
+  animation: scanSweep 2.6s ease-in-out infinite;
+}
+@keyframes scanSweep {
+  0%,
+  100% {
+    top: 12%;
+    opacity: 0.45;
+  }
+  50% {
+    top: 88%;
+    opacity: 1;
+  }
+}
+.scan-badge {
+  position: absolute;
+  bottom: max(26px, env(safe-area-inset-bottom));
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 14px 8px 8px;
+  border-radius: 99px;
+  background: #082d4dcc;
+  border: 1px solid #ffffff3d;
+  backdrop-filter: blur(10px);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  max-width: calc(100vw - 32px);
+}
+.scan-badge img {
+  width: 28px;
+  height: 36px;
+  object-fit: cover;
+  border-radius: 6px;
+  border: 1px solid #ffffff66;
+}
+.scan-badge span {
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
